@@ -36,3 +36,8 @@ RUN sed -i 's/# exec CMD/# exec CMD\n\/opt\/startup-piwik.sh/g' /opt/entrypoint.
 
 # add missing always_populate_raw_post_data = -1 to php.ini (bug #8, piwik bug #6468)
 RUN sed -i 's/;always_populate_raw_post_data/always_populate_raw_post_data/g' /etc/php5/fpm/php.ini
+
+# add geoip file
+RUN curl -O "http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz"
+RUN gunzip GeoLiteCity.dat.gz
+RUN mv GeoLiteCity.dat /piwik/misc/GeoIPCity.dat
